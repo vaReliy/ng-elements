@@ -1,16 +1,30 @@
+import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { RateComponent } from './rate/rate.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RateComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [],
+  entryComponents: [
+    RateComponent,
+  ],
 })
-export class AppModule { }
+export class AppModule implements DoBootstrap {
+  constructor(private injector: Injector) {
+  }
+
+  ngDoBootstrap(appRef: ApplicationRef): void {
+    const rateComponent = createCustomElement(RateComponent, {injector: this.injector});
+    customElements.define('app-rate', rateComponent);
+  }
+}
