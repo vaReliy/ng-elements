@@ -1,27 +1,46 @@
 # NgElements
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.4.
+Test task of ng-elements.
 
-## Development server
+## How to run demo:
+```
+# Install npm dependencies:
+npm i
+# Run demo:
+npm run demo
+# NOTICE: the project uses the global npm http-server.
+# For instal it globally:
+npm i -g htp-server
+# The demo is on http://localhost:8082/
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## How to usage:
+Example of [index.html](./some-app/index.html)
 
-## Code scaffolding
+For usage a `star-rate` element, You need append to html-file
+1. the element itself
+`<stars-rate max-value="5" value="2"></stars-rate>`
+2. the next scripts:
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.10/custom-elements-es5-adapter.js"></script>
+<script type="text/javascript" src="http://localhost:8081/main.js"></script>
+```
+To handle value change you might to subscribe to 'valueChanges' event:
+```
+window.onload = () => (function () {
+      const resForm = document.querySelector('stars-rate');
+      if (resForm !== null) {
+        resForm.addEventListener('valueChanges', (event) => console.log('stars-rate =>', event.detail));
+      }
+    }());
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+Params of `stars-rate`.  
+1. Input params:
+ * max-value | length of rate stars (number of stars). Default is 5.
+ * value | selected stars value. Default is 0 (all are unselected).
+2. Output params:
+ * 'valueChanges' Event | the value of selected stars (event.detail).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
