@@ -25,6 +25,6 @@ export class AppModule implements DoBootstrap {
 
   ngDoBootstrap(appRef: ApplicationRef): void {
     const rateComponent = createCustomElement(RateComponent, {injector: this.injector});
-    customElements.define('app-rate', rateComponent);
+    customElements.define('stars-rate', rateComponent);
   }
 }

@@ -1,5 +1,11 @@
-<div style="text-align:center">
-  <a href="javascript:alert('Welcome to Rate Component!');" style="font-size:25px;">
-    {{ title }}
-  </a>
+<div class="rating">
+  <ng-container *ngFor="let star of stars; let i = index">
+    <span
+      (mouseover)="onOver(i)"
+      (mouseout)="onOut()"
+      (click)="onClick(i)"
+    >
+      {{star.isRated ? RATE.RATED_STAR : RATE.UNRATED_STAR}}
+    </span>
+  </ng-container>
 </div>

@@ -8,10 +8,20 @@
   <title>Some application</title>
 </head>
 <body>
-  <app-rate></app-rate>
+  <h2>Usage example on some other application</h2>
+  <stars-rate max-value="7" value="3"></stars-rate>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.10/custom-elements-es5-adapter.js"></script>
   <script type="text/javascript" src="http://localhost:8081/main.js"></script>
+
+  <script type="text/javascript">
+    window.onload = () => (function () {
+      const resForm = document.querySelector('stars-rate');
+      if (resForm !== null) {
+        resForm.addEventListener('valueChanges', (event) => console.log('stars-rate =>', event.detail));
+      }
+    }());
+  </script>
 </body>
 </html>
 
