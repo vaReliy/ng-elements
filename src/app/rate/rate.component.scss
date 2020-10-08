@@ -5,3 +5,11 @@
   font-size: 25px;
   cursor: pointer;
 }
+
+.disabled {
+  cursor: default;
+
+  & span {
+    color: gray;
+  }
+}

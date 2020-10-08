@@ -1,5 +1,6 @@
 import { ApplicationRef, DoBootstrap, Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -12,11 +13,12 @@ import { RateComponent } from './rate/rate.component';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [],
+  bootstrap: [AppComponent],
   entryComponents: [
-    RateComponent,
+    // RateComponent,
   ],
 })
 export class AppModule implements DoBootstrap {
@@ -24,7 +26,7 @@ export class AppModule implements DoBootstrap {
   }
 
   ngDoBootstrap(appRef: ApplicationRef): void {
-    const rateComponent = createCustomElement(RateComponent, {injector: this.injector});
-    customElements.define('stars-rate', rateComponent);
+    // const rateComponent = createCustomElement(RateComponent, {injector: this.injector});
+    // customElements.define('stars-rate', rateComponent);
   }
 }

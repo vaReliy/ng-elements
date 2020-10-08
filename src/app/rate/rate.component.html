@@ -1,9 +1,9 @@
-<div class="rating">
+<div class="rating" [ngClass]="{'disabled': isDisabled}">
   <ng-container *ngFor="let star of stars; let i = index">
     <span
-      (mouseover)="onOver(i)"
-      (mouseout)="onOut()"
-      (click)="onClick(i)"
+      (mouseover)="isDisabled ? onDisabled() : onOver(i)"
+      (mouseout)="isDisabled ? onDisabled() : onOut()"
+      (click)="isDisabled ? onDisabled() : onClick(i)"
     >
       {{star.isRated ? RATE.RATED_STAR : RATE.UNRATED_STAR}}
     </span>

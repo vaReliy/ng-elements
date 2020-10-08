@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Rate } from './rate.constants';
 
 export interface RateSymbol {
@@ -10,11 +11,18 @@ export interface RateSymbol {
   templateUrl: './rate.component.html',
   styleUrls: ['./rate.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => RateComponent),
+    multi: true,
+  }],
 })
-export class RateComponent implements OnInit {
+export class RateComponent implements ControlValueAccessor, OnInit {
   RATE = Rate;
   innerValue = 0;
   stars: RateSymbol[] = [];
+  isDisabled: boolean;
+  isTouched: boolean;
 
   @Input()
   get maxValue(): number {
@@ -47,7 +55,31 @@ export class RateComponent implements OnInit {
 
   @Output() valueChanges = new EventEmitter<number>();
 
-  constructor() {
+  constructor(
+    private cdr: ChangeDetectorRef,
+  ) {
+  }
+
+  onChange(_: any): void {}
+  onTouched(): void {}
+  onDisabled(): void {}
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+    this.cdr.detectChanges();
+  }
+
+  writeValue(value: number): void {
+    this.value = value;
+    this.rerender();
   }
 
   ngOnInit(): void {
@@ -81,6 +113,11 @@ export class RateComponent implements OnInit {
       this.value = updatedValue;
       this.rerender();
       this.valueChanges.emit(this.value);
+      this.onChange(this.value);
+      if (!this.isTouched) {
+        this.isTouched = true;
+        this.onTouched();
+      }
     }
   }
 
