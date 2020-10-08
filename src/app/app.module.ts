@@ -16,9 +16,9 @@ import { RateComponent } from './rate/rate.component';
     ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [],
   entryComponents: [
-    // RateComponent,
+    RateComponent,
   ],
 })
 export class AppModule implements DoBootstrap {
@@ -26,7 +26,7 @@ export class AppModule implements DoBootstrap {
   }
 
   ngDoBootstrap(appRef: ApplicationRef): void {
-    // const rateComponent = createCustomElement(RateComponent, {injector: this.injector});
-    // customElements.define('stars-rate', rateComponent);
+    const rateComponent = createCustomElement(RateComponent, {injector: this.injector});
+    customElements.define('stars-rate', rateComponent);
   }
 }
