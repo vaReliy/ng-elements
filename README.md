@@ -1,6 +1,7 @@
 # NgElements
 
-Test task of ng-elements.
+Test task of ng-elements.  
+Need to implement a rate-component (stars).
 
 ## How to run demo:
 ```
@@ -10,11 +11,11 @@ npm i
 npm run demo
 # NOTICE: the project uses the global npm http-server.
 # For instal it globally:
-npm i -g htp-server
+npm i -g http-server
 # The demo is on http://localhost:8082/
 ```
 
-## How to usage:
+## How to usage as Custom Element:
 Example of [index.html](./some-app/index.html)
 
 For usage a `star-rate` element, You need append to html-file
@@ -44,3 +45,35 @@ Params of `stars-rate`.
 2. Output params:
  * 'valueChanges' Event | the value of selected stars (event.detail).
 
+
+##
+## How to usage as Angular Component:
+1. Need to update AppModule.ts to:
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+    RateComponent,
+  ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {
+}
+``` 
+2. Uncomment app.component.html to:
+```
+<form [formGroup]="formG">
+  <app-rate formControlName="stars"></app-rate>
+</form>
+```
+3. You can usage 'app-rate' as an Angular Element in Angular project as a custom formcontrol.
+4. For demo run
+```
+npm run start
+# The demo is on http://localhost:4200/
+```

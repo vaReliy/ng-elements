@@ -14,12 +14,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      console.log('enable form');
+      console.log('Enable form from disabled state');
       this.formG.enable();
     }, 3000);
 
     this.formG.valueChanges.subscribe(form => {
-      console.log('valueChanges', this.formG.get('stars'));
+      const stars = this.formG.get('stars');
+      console.log('Form valueChanges: value =', stars.value, 'touched =', stars.touched);
     });
   }
 }
